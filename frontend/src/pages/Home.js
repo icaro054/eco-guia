@@ -9,10 +9,11 @@ export function renderSplashScreen() {
         <span class="splash-mark">D<i></i></span>
         <p class="splash-name">DIVERDE</p>
         <p class="splash-tagline">Seu guia para reciclar melhor.</p>
-      </div>
-      <button class="splash-start" onclick="window.navegar('home')" aria-label="Começar">
+          <button class="splash-start" onclick="window.navegar('home')" aria-label="Começar">
         ${renderIcon('chevron')}
       </button>
+      </div>
+
     </section>
   `;
 }
