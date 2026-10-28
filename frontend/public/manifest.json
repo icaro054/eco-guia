@@ -1,0 +1,21 @@
+{
+  "id": "/",
+  "name": "DIVERDE - Guia de Descarte Consciente",
+  "short_name": "DIVERDE",
+  "description": "Encontre orientações de descarte e pontos de coleta para reciclar melhor.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f8f6",
+  "theme_color": "#214b3b",
+  "icons": [
+    {
+      "src": "/public/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
