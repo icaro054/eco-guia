@@ -12,6 +12,10 @@ export function renderSearchPage(residuosFiltrados, termoBusca, pontoAtivo) {
       <main class="page-content compact-page">
         ${renderSearchBar(termoBusca)}
 
+        <section id="resultados-busca" aria-live="polite">
+          ${renderSearchResults(residuosFiltrados)}
+        </section>
+
         <section id="mapa-busca" class="mapa-simples" aria-live="polite">
           ${renderMapContainer(residuosFiltrados, pontoAtivo)}
         </section>
@@ -32,5 +36,12 @@ export function renderSearchResults(residuos) {
     `;
   }
 
-  return '';
+  return `
+    <div class="search-results">
+      <p class="sugestoes-label">Materiais encontrados</p>
+      <div class="grid-categorias">
+        ${residuos.map(item => renderCategoryCard(item, true)).join('')}
+      </div>
+    </div>
+  `;
 }
