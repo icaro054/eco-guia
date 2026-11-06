@@ -1,6 +1,6 @@
 // frontend/src/pages/CategoryDetail.js
 import { renderHeader, renderBottomNav } from '../components/Header.js';
-import { renderIcon } from '../components/Icon.js';
+import { getCategoryIconName, renderIcon } from '../components/Icon.js';
 
 export function renderCategoryDetailPage(item) {
   return `
@@ -9,7 +9,7 @@ export function renderCategoryDetailPage(item) {
       <main class="page-content detail-content">
         <button class="back-action" onclick="window.navegar('home')">${renderIcon('chevron')} Voltar às categorias</button>
         <article class="detail-hero">
-          <span class="detail-symbol">${renderIcon('recycle')}</span>
+          <span class="detail-symbol">${renderIcon(getCategoryIconName(item.categoria))}</span>
           <p class="eyebrow eyebrow-dark">GUIA DE DESCARTE</p>
           <h2>${item.nome}</h2>
           <span class="category-pill">${item.categoria}</span>

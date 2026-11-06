@@ -17,7 +17,8 @@ async function iniciarApp() {
   listaCompleta = await api.listarResiduos();
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
+    const appBase = new URL('../', import.meta.url);
+    navigator.serviceWorker.register(new URL('sw.js', appBase), { scope: appBase.pathname })
       .catch(error => console.error('Não foi possível registrar o service worker:', error));
   }
 }

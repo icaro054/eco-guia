@@ -1,21 +1,24 @@
-const CACHE_NAME = 'diverde-app-v2';
+const CACHE_NAME = 'diverde-app-v3';
+const APP_BASE = new URL('./', self.registration.scope);
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/public/manifest.json',
-  '/public/icons/icon.svg',
-  '/src/main.js',
-  '/src/services/api.js',
-  '/src/components/Icon.js',
-  '/src/components/Header.js',
-  '/src/components/CategoryCard.js',
-  '/src/components/SearchBar.js',
-  '/src/components/MapContainer.js',
-  '/src/pages/Home.js',
-  '/src/pages/Search.js',
-  '/src/pages/CategoryDetail.js',
-  '/src/styles/global.css'
-];
+  './',
+  './index.html',
+  './manifest.json',
+  './public/icons/icon.svg',
+  './public/icons/icon-192.png',
+  './public/icons/icon-512.png',
+  './src/main.js',
+  './src/services/api.js',
+  './src/components/Icon.js',
+  './src/components/Header.js',
+  './src/components/CategoryCard.js',
+  './src/components/SearchBar.js',
+  './src/components/MapContainer.js',
+  './src/pages/Home.js',
+  './src/pages/Search.js',
+  './src/pages/CategoryDetail.js',
+  './src/styles/global.css'
+].map(path => new URL(path, APP_BASE).href);
 
 self.addEventListener('install', event => {
   event.waitUntil(
