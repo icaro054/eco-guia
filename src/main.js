@@ -9,8 +9,6 @@ const app = document.getElementById('app');
 let listaCompleta = [];
 let pontoMapaAtivo = null;
 let resultadosBusca = [];
-let sequenciaBusca = 0;
-let temporizadorBusca;
 
 async function iniciarApp() {
   app.innerHTML = renderSplashScreen();
@@ -44,26 +42,24 @@ window.abrirCategoria = async (nomeCategoria) => {
 };
 
 window.executarBusca = (termo) => {
-  const buscaId = ++sequenciaBusca;
-  window.clearTimeout(temporizadorBusca);
-  temporizadorBusca = window.setTimeout(async () => {
-    const filtrados = await api.listarResiduos(termo);
-    if (buscaId !== sequenciaBusca) return;
+  const normalizar = valor => valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const termoNormalizado = normalizar(termo.trim());
+  resultadosBusca = listaCompleta.filter(item =>
+    normalizar(`${item.nome} ${item.categoria}`).includes(termoNormalizado)
+  );
 
-    resultadosBusca = filtrados;
-    const input = document.getElementById('input-pesquisa');
-    if (input && input.value !== termo) input.value = termo;
-    pontoMapaAtivo = filtrados.some(item => item.pontoColeta?.nome === pontoMapaAtivo?.nome)
-      ? pontoMapaAtivo
-      : filtrados[0]?.pontoColeta || null;
+  const input = document.getElementById('input-pesquisa');
+  if (input && input.value !== termo) input.value = termo;
+  pontoMapaAtivo = resultadosBusca.some(item => item.pontoColeta?.nome === pontoMapaAtivo?.nome)
+    ? pontoMapaAtivo
+    : resultadosBusca[0]?.pontoColeta || null;
 
-    const resultados = document.getElementById('resultados-busca');
-    const mapa = document.getElementById('mapa-busca');
-    if (resultados && mapa) {
-      resultados.innerHTML = renderSearchResults(filtrados);
-      mapa.innerHTML = renderMapContainer(filtrados, pontoMapaAtivo);
-    }
-  }, 180);
+  const resultados = document.getElementById('resultados-busca');
+  const mapa = document.getElementById('mapa-busca');
+  if (resultados && mapa) {
+    resultados.innerHTML = renderSearchResults(resultadosBusca);
+    mapa.innerHTML = renderMapContainer(resultadosBusca, pontoMapaAtivo);
+  }
 };
 
 window.selecionarPonto = async (nomeCategoria) => {
